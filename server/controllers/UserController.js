@@ -1,11 +1,32 @@
+const fs = require('fs');
 const Util = require('../util')
 const util = new Util();
-const data = [{'id': 1,'name': 'test','age': 24}, {'id': 2,'name': 'test1','age': 25}];
+const data = [{'id': 1,'name': 'test','age': 24}, {'id': 2,'name': 'test1','age': 25}, {'id': 3,'name': 'vinayak pandya','age': 27}];
+
+async function userSearch(searchfield){
+    if (searchfield) {
+        return data.filter((item)=>{
+            return searchfield.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+        })
+    } else {
+        return data
+    }
+}
 
 class UserController {
     static async userList(req, res) {
         try {
-            util.setSuccess(200, "All user get successfully", data);
+            fs.writeFile('test.json',JSON.stringify(data), 'utf8',  function (err) {
+                if (err) throw err;
+                console.log('Replaced!');
+                }); 
+            let searchData = await userSearch(req.query.search)
+            if (searchData.length == 0) {
+                util.setSuccess(200, "User Not found");
+                } 
+            else {
+                util.setSuccess(200, "All user get successfully", searchData);
+            }
         } catch (error) {
             util.setError(500, error.message);
         }
