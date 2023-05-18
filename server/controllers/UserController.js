@@ -1,7 +1,8 @@
 const fs = require('fs');
 const Util = require('../util')
 const util = new Util();
-const data = [{'id': 1,'name': 'test','age': 24}, {'id': 2,'name': 'test1','age': 25}, {'id': 3,'name': 'vinayak pandya','age': 27}];
+const data = [{'id': 1,'name': 'test','age': 24}, {'id': 2,'name': 'test1','age': 25},
+ {'id': 3,'name': 'vinayak pandya','age': 27}, {'id': 4,'name': 'Naman Shah','age': 23}];
 
 async function userSearch(searchfield){
     if (searchfield) {
